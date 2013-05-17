@@ -6,7 +6,7 @@ JavaScript function which converts JSON to CSV
 Example:
 
 var test = {name: "foo", age: 777, commits: [1,2,3]}
-jsonToCSV([test], ["NAME", "AGE"])
+jsonToCSV([test], ",", "", ["NAME", "AGE"])
 
 This will return the following string:
 
