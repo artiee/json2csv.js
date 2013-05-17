@@ -1,7 +1,7 @@
 json2csv.js
 ===========
 
-JavaScript function which converts JSON to CSV
+JavaScript function which converts JSON to CSV (comma-separated values).
 
 Example:
 
