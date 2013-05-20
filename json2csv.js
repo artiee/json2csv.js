@@ -50,6 +50,12 @@
             // flatten array to string:
             resultCSV += "\"" + obj[fieldName].toString() + "\"" + sep
           }
+          
+          else if (obj[fieldName] === null)
+            resultCSV += '' + sep
+
+          else
+            resultCSV += '' + sep
         }
       }
       return resultCSV.slice(0,-1) + endOfLine
