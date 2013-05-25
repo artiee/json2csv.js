@@ -45,7 +45,7 @@
           }
         }
       }
-      result = result.slice(0,-1) // take of the last comma
+      result = result.slice(0,-(self.sep.length)) // take of the last separator
       return result
     },
 
@@ -74,7 +74,7 @@
             resultCSV += '' + self.sep
         }
       }
-      return resultCSV.slice(0,-1) + self.endOfLine
+      return resultCSV.slice(0,-(self.sep.length)) + self.endOfLine
     }
 
   }
