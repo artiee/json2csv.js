@@ -7,7 +7,8 @@ Example:
 
 var test = {name: "foo", age: 777, commits: [1,2,3]}
 
-jsonToCSV([test], ",", ";", ["NAME", "AGE"])
+var j2csv = new jsonToCSV(',', ';')
+j2csv.convert([test], ["NAME", "AGE"])
 
 This will return the following string:
 
