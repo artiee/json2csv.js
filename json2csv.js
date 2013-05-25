@@ -1,66 +1,80 @@
   // Example:
   //   var test = {name: "foo", age: 777}
-  //   jsonToCSV([test], ",", "", ["NAME", "AGE"])
+  // var j = new jsonToCSV(':', ';')
+  // j.convert([test], ["NAME", "AGE"])
   // Note that the separator, lineEnd and field names -parameters can be left empty
   //
-  function jsonToCSV (jsonObjArray, separator, lineEnd, fieldNames) {
-    var result = ""
-      , sep = ","
-      , endOfLine = ""
+  var jsonToCSV = function (separator, lineEnd) {
 
-    if (typeof separator !== 'undefined')
-      sep = separator
+    this.sep = ",",
 
-    if (typeof lineEnd !== 'undefined')
-      endOfLine = lineEnd
+    this.endOfLine = "",
 
-    // build fieldnames:
-    if (typeof fieldNames !== 'undefined') {
-      fieldNames.forEach(function(field){
-        result += "\"" + field + "\"" + sep
+    this.convert = function(jsonObjArray, fieldNames){
+      var self = this
+        , result = ""
+
+      if (typeof separator !== 'undefined')
+        this.sep = separator
+
+      if (typeof lineEnd !== 'undefined')
+        this.endOfLine = lineEnd
+      
+      result = self.buildFieldNames(jsonObjArray, fieldNames)
+      result = result + self.endOfLine + "\n"
+
+      jsonObjArray.forEach(function(jso){
+        result += self.objToCSVString(jso) + "\n"
       })
-    } else {
-      if (jsonObjArray.length > 0) {
-        var firstObj = jsonObjArray[0]
-        for (var fieldName in firstObj) {
-          result = result + "\"" + fieldName + "\"" + sep
+      return result
+    },
+
+    this.buildFieldNames = function(jsonObjArray, fieldNames){
+      var self = this
+        , result = ""
+
+      if (typeof fieldNames !== 'undefined') {
+        fieldNames.forEach(function(field){
+          result += "\"" + field + "\"" + self.sep
+        })
+      } else {
+        if (jsonObjArray.length > 0) {
+          var firstObj = jsonObjArray[0]
+          for (var fieldName in firstObj) {
+            result = result + "\"" + fieldName + "\"" + self.sep
+          }
         }
       }
-    }
+      result = result.slice(0,-1) // take of the last comma
+      return result
+    },
 
-    result = result.slice(0,-1) // take of the last comma
-    result = result + endOfLine + "\n"
+    this.objToCSVString = function (obj) {
+      var self = this
+        , resultCSV = ''
 
-    jsonObjArray.forEach(function(jso){
-      result += objToCSVString(jso) + "\n"
-    })
-
-    function objToCSVString (obj) {
-      var resultCSV = ''
       for (var fieldName in obj) {
         if (obj.hasOwnProperty(fieldName)) {
 
           if (typeof obj[fieldName] === 'string')
-            resultCSV += "\"" + obj[fieldName] + "\"" + sep
+            resultCSV += "\"" + obj[fieldName] + "\"" + self.sep
 
           else if (typeof obj[fieldName] === 'number')
-            resultCSV += obj[fieldName] + sep
+            resultCSV += obj[fieldName] + self.sep
 
           else if (Object.prototype.toString.call( obj[fieldName] ) === '[object Array]') {
             // flatten array to string:
-            resultCSV += "\"" + obj[fieldName].toString() + "\"" + sep
+            resultCSV += "\"" + obj[fieldName].toString() + "\"" + self.sep
           }
           
           else if (obj[fieldName] === null)
-            resultCSV += '' + sep
+            resultCSV += '' + self.sep
 
           else
-            resultCSV += '' + sep
+            resultCSV += '' + self.sep
         }
       }
-      return resultCSV.slice(0,-1) + endOfLine
+      return resultCSV.slice(0,-1) + self.endOfLine
     }
-
-    return result
 
   }
