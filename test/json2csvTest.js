@@ -4,7 +4,7 @@
 // For documentation visit: http://visionmedia.github.io/mocha/
 
 const assert = require("assert")
-  , j2csv = require("../lib/jsonToCSV")
+  , j2csv = require("../json2csv")
 
 describe('j2csv', function() {
   describe('convert', function() {
