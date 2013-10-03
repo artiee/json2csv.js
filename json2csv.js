@@ -27,7 +27,7 @@ function jsonToCSV(separator, lineEnd) {
     if (typeof lineEnd !== 'undefined') {
       this.endOfLine = lineEnd
     }
-      
+
     result = self.buildFieldNames(jsonObjArray, fieldNames)
     result = result + self.endOfLine + "\n"
 
@@ -78,7 +78,7 @@ function jsonToCSV(separator, lineEnd) {
           // flatten array to string:
           resultCSV += "\"" + obj[fieldName].toString() + "\"" + self.sep
         }
-          
+
         else if (obj[fieldName] === null) {
           resultCSV += '' + self.sep
         }

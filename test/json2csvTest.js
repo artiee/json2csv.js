@@ -7,7 +7,9 @@ const assert = require("assert")
   , j2csv = require("../json2csv")
 
 describe('j2csv', function() {
+
   describe('convert', function() {
+
     it('should not crash when jsonObj is empty', function(){
       const j = new j2csv()
           , test = {name: 'foo', age: 10}
@@ -35,8 +37,11 @@ describe('j2csv', function() {
           , result = j.convert([test])
       assert.equal(result, "\"name\",\"age\";\n\"foo\",10;\n")
     })
+
   })
+
   describe('buildFieldNames', function() {
+
     it('use key-names when empty fieldnames (undefined) are given', function(){
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
@@ -84,5 +89,18 @@ describe('j2csv', function() {
           , result = j.buildFieldNames(jsonObjArray, fieldNames)
       assert.equal(result, "\"name\",\"age\"")
     })
+
   })
+  
+  describe('objToCSVString', function() {
+
+    it('convert object correctly to csv string when no separator and line-end are given', function(){
+      const j = new j2csv()
+          , jsonObj = {name: 'foo', age: 10}
+          , result = j.objToCSVString(jsonObj)
+      assert.equal(result, "\"foo\",10")
+    })
+
+  })
+
 })
