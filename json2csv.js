@@ -88,6 +88,7 @@ function jsonToCSV(separator, lineEnd) {
         }
       }
     }
+    // take away the last separator and add endOfLine instead:
     return resultCSV.slice(0,-(self.sep.length)) + self.endOfLine
   }
 

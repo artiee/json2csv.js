@@ -94,11 +94,39 @@ describe('j2csv', function() {
   
   describe('objToCSVString', function() {
 
-    it('convert object correctly to csv string when no separator and line-end are given', function(){
+    it('convert object with string and number correctly to csv string when no separator and line-end are given', function() {
       const j = new j2csv()
           , jsonObj = {name: 'foo', age: 10}
           , result = j.objToCSVString(jsonObj)
       assert.equal(result, "\"foo\",10")
+    })
+
+    it('convert object with null', function() {
+      const j = new j2csv()
+          , jsonObj = {name: null, age: 10}
+          , result = j.objToCSVString(jsonObj)
+      assert.equal(result, ",10")
+    })
+
+    it('convert object with undefined', function() {
+      const j = new j2csv()
+          , jsonObj = {name: undefined, age: 10}
+          , result = j.objToCSVString(jsonObj)
+      assert.equal(result, ",10")
+    })
+
+    it('convert object with empty string', function() {
+      const j = new j2csv()
+          , jsonObj = {name: '', age: 10}
+          , result = j.objToCSVString(jsonObj)
+      assert.equal(result, "\"\",10")
+    })
+
+    it('convert an array', function() {
+      const j = new j2csv()
+          , jsonObj = {keywords: ['foo', 'bar']}
+          , result = j.objToCSVString(jsonObj)
+      assert.equal(result, "\"foo,bar\"")
     })
 
   })
