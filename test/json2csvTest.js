@@ -10,28 +10,28 @@ describe('j2csv', function() {
 
   describe('convert', function() {
 
-    it('should not crash when jsonObj is empty', function(){
+    it('should not crash when jsonObj is empty', function() {
       const j = new j2csv()
           , test = {name: 'foo', age: 10}
           , result = j.convert()
       assert.equal(result, undefined)
     })
 
-    it('should convert test correctly', function(){
+    it('should convert test correctly', function() {
       const j = new j2csv()
           , test = {name: 'foo', age: 10}
           , result = j.convert([test])
       assert.equal(result, "\"name\",\"age\"\n\"foo\",10\n")
     })
 
-    it('should convert test correctly when separator is ;', function(){
+    it('should convert test correctly when separator is ;', function() {
       const j = new j2csv(';')
           , test = {name: 'foo', age: 10}
           , result = j.convert([test])
       assert.equal(result, "\"name\";\"age\"\n\"foo\";10\n")
     })
 
-    it('should convert test correctly when line-end is ;', function(){
+    it('should convert test correctly when line-end is ;', function() {
       const j = new j2csv(',', ';')
           , test = {name: 'foo', age: 10}
           , result = j.convert([test])
@@ -42,7 +42,7 @@ describe('j2csv', function() {
 
   describe('buildFieldNames', function() {
 
-    it('use key-names when empty fieldnames (undefined) are given', function(){
+    it('use key-names when empty fieldnames (undefined) are given', function() {
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
           , fieldNames = undefined
@@ -50,7 +50,7 @@ describe('j2csv', function() {
       assert.equal(result, "\"name\",\"age\"")
     })
 
-    it('use key-names when empty fieldnames (null) are given', function(){
+    it('use key-names when empty fieldnames (null) are given', function() {
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
           , fieldNames = null
@@ -58,7 +58,7 @@ describe('j2csv', function() {
       assert.equal(result, "\"name\",\"age\"")
     })
 
-    it('use key-names when empty fieldnames (empty array) are given', function(){
+    it('use key-names when empty fieldnames (empty array) are given', function() {
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
           , fieldNames = []
@@ -66,7 +66,7 @@ describe('j2csv', function() {
       assert.equal(result, "\"name\",\"age\"")
     })
 
-    it('use key-names when fieldnames are given given as string (should be an array)', function(){
+    it('use key-names when fieldnames are given given as string (should be an array)', function() {
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
           , fieldNames = "name, age"
@@ -74,7 +74,7 @@ describe('j2csv', function() {
       assert.equal(result, "\"name\",\"age\"")
     })
 
-    it('build correct fieldnames', function(){
+    it('build correct fieldnames', function() {
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
           , fieldNames = ["name"]
@@ -82,7 +82,7 @@ describe('j2csv', function() {
       assert.equal(result, "\"name\"")
     })
 
-    it('build correct fieldnames', function(){
+    it('build correct fieldnames', function() {
       const j = new j2csv(',', ';')
           , jsonObjArray = [{name: 'foo', age: 10}]
           , fieldNames = ["name", "age"]
