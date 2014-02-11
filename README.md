@@ -7,7 +7,7 @@ Example:
 
 var test = {name: "foo", age: 777, commits: [1,2,3]}
 
-var j2csv = new jsonToCSV(',', ';') // separator "," (comma) and last character ";" (semicolon)
+var j2csv = new jsonToCSV.jsonToCSV(',', ';') // separator "," (comma) and last character ";" (semicolon)
 
 j2csv.convert([test], ["NAME", "AGE"])
 
