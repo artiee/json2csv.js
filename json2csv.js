@@ -27,7 +27,7 @@ function jsonToCSV(separator, lineEnd) {
     if (typeof lineEnd !== 'undefined') {
       this.endOfLine = lineEnd
     }
-
+      
     result = self.buildFieldNames(jsonObjArray, fieldNames)
     result = result + self.endOfLine + "\n"
 
@@ -74,11 +74,15 @@ function jsonToCSV(separator, lineEnd) {
           resultCSV += obj[fieldName] + self.sep
         }
 
+        else if (Object.prototype.toString.call(obj[fieldName]) === '[object Date]') {
+          resultCSV += "\"" + self.dateToString(obj[fieldName]) + "\"" + self.sep
+        }
+
         else if (Object.prototype.toString.call( obj[fieldName] ) === '[object Array]') {
           // flatten array to string:
           resultCSV += "\"" + obj[fieldName].toString() + "\"" + self.sep
         }
-
+          
         else if (obj[fieldName] === null) {
           resultCSV += '' + self.sep
         }
@@ -88,8 +92,25 @@ function jsonToCSV(separator, lineEnd) {
         }
       }
     }
-    // take away the last separator and add endOfLine instead:
     return resultCSV.slice(0,-(self.sep.length)) + self.endOfLine
+  },
+  
+  // e.g. 2.12.2013 => 2013-12-02
+  this.dateToString = function(date) {
+    const self = this
+    var result = ""
+    if (typeof date !== 'undefined' && date !== null) {
+      result = date.getFullYear().toString() + '-' +
+               self.prefixStringNDigitsLong( (date.getMonth() + 1).toString(), '0', 2) + "-" +
+               self.prefixStringNDigitsLong( date.getDate().toString(), '0', 2)
+    }
+    return result
+  },
+  
+  this.prefixStringNDigitsLong = function (str, char, n){
+    var mask = new Array(n+1)
+    mask = mask.join(char)
+    return (mask + str.toString()).slice(-n)
   }
 
 }
